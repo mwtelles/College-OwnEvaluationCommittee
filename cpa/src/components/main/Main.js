@@ -1,8 +1,22 @@
+import { useEffect, useState } from 'react';
 import "./Main.css";
 import hello from "../../assets/student.png";
-import professor from "../../assets/professor.png";
+import Chart from "../charts/Chart";
+import Avaliacao from "../../api_avaliacao"
 
 const Main = () => {
+
+  const [listaAvaliacoes, setListaDeAvaliacoes] = useState([]);
+
+    useEffect(()=>{
+        const loadCharts = async () => {
+            let lista = await Avaliacao.getAvaliacao();
+            setListaDeAvaliacoes(lista);
+        }
+
+        loadCharts();
+    }, []);
+
   return (
     <main>
       <div className="main__container">
@@ -72,58 +86,9 @@ const Main = () => {
                 <p>Engenharia de Software, Campus de Vassouras, Rio de Janeiro - 6° Período</p>
               </div>
             </div>
-            <div className="charts__evaluation">
-              <a href="#">
-                <div className="charts__evaluation__image">
-                <img src={professor} alt="professor"/>
-                </div>
-                <div className="charts__evaluation__title">
-                <h1>Laboratório de Programação de Interfaces Web</h1>
-                <div className="charts__evaluation__subtitle">
-                <p>Realizar avaliação até 18 de novembro de 2021</p>
-                </div>
-              </div>
-              </a>
-            </div>
-            <div className="charts__evaluation">
-              <a href="#">
-                <div className="charts__evaluation__image">
-                <img src={professor} alt="professor"/>
-                </div>
-                <div className="charts__evaluation__title">
-                <h1>Laboratório de Programação de Interfaces Web</h1>
-                <div className="charts__evaluation__subtitle">
-                <p>Realizar avaliação até 18 de novembro de 2021</p>
-                </div>
-              </div>
-              </a>
-            </div>
-            <div className="charts__evaluation">
-              <a href="#">
-                <div className="charts__evaluation__image">
-                <img src={professor} alt="professor"/>
-                </div>
-                <div className="charts__evaluation__title">
-                <h1>Laboratório de Programação de Interfaces Web</h1>
-                <div className="charts__evaluation__subtitle">
-                <p>Realizar avaliação até 18 de novembro de 2021</p>
-                </div>
-              </div>
-              </a>
-            </div>
-            <div className="charts__evaluation">
-              <a href="#">
-                <div className="charts__evaluation__image">
-                <img src={professor} alt="professor"/>
-                </div>
-                <div className="charts__evaluation__title">
-                <h1>Laboratório de Programação de Interfaces Web</h1>
-                <div className="charts__evaluation__subtitle">
-                <p>Realizar avaliação até 18 de novembro de 2021</p>
-                </div>
-              </div>
-              </a>
-            </div>
+            {listaAvaliacoes.map((item, key)=>(
+                <Chart key={key} title={item.title} items={item.items}/>
+            ))}
           </div>
         </div>
         {/* <!-- CHARTS ENDS HERE --> */}

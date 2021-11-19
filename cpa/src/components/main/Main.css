@@ -111,10 +111,6 @@ main {
 }
 
 .charts__evaluation > a:hover {
-  -webkit-transform: scale(1.2);
--ms-transform: scale(1.2);
-transform: scale(1.2);
-transition: 1s ease;
 }
 
 .charts__evaluation > a {
